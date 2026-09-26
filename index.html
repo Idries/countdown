@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Countdown</title>
+  <meta name="description" content="Simple, ad-free countdowns to the dates that matter.">
+  <meta name="theme-color" content="#0f1220">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Countdown</h1>
+    <button class="icon-btn" id="menuBtn" aria-label="Menu" aria-haspopup="true">⋮</button>
+    <div class="menu" id="menu" hidden>
+      <button data-action="export">Export backup</button>
+      <button data-action="import">Import backup</button>
+      <button data-action="sort">Sort: <span id="sortLabel">soonest</span></button>
+    </div>
+  </header>
+
+  <main>
+    <ul id="list" class="list"></ul>
+    <div id="empty" class="empty" hidden>
+      <div class="empty-emoji">⏳</div>
+      <p>No countdowns yet.</p>
+      <p class="muted">Tap <strong>+</strong> to add one — a birthday, a trip, a retirement date…</p>
+    </div>
+  </main>
+
+  <button id="addBtn" class="fab" aria-label="Add countdown">+</button>
+
+  <dialog id="editor">
+    <form method="dialog" id="editorForm">
+      <h2 id="editorTitle">New countdown</h2>
+
+      <label>Name
+        <input name="title" required maxlength="80" placeholder="e.g. Sam turns 18" autocomplete="off">
+      </label>
+
+      <div class="row">
+        <label>Date
+          <input name="date" type="date" required>
+        </label>
+        <label>Time <span class="muted">(optional)</span>
+          <input name="time" type="time">
+        </label>
+      </div>
+
+      <label>Emoji
+        <input name="emoji" maxlength="8" placeholder="🎂" autocomplete="off">
+      </label>
+
+      <fieldset>
+        <legend>Colour</legend>
+        <div class="swatches" id="swatches"></div>
+      </fieldset>
+
+      <label class="check">
+        <input name="yearly" type="checkbox">
+        Repeats every year <span class="muted">(birthdays, anniversaries)</span>
+      </label>
+
+      <div class="actions">
+        <button type="button" class="danger" id="deleteBtn" hidden>Delete</button>
+        <span class="spacer"></span>
+        <button type="button" value="cancel" id="cancelBtn">Cancel</button>
+        <button type="submit" value="save" class="primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+
+  <script src="app.js"></script>
+</body>
+</html>
