@@ -229,12 +229,14 @@ function render() {
     const live = el('div', 'card-extra live', liveText(info, now));
     li.append(live);
 
-    const progress = el('div', 'progress');
-    const bar = el('div');
-    bar.style.width = `${(info.progress * 100).toFixed(2)}%`;
-    progress.append(bar);
-    progress.title = `${Math.round(info.progress * 100)}% of the way there`;
-    li.append(progress);
+    if (!item.hideProgress) {
+      const progress = el('div', 'progress');
+      const bar = el('div');
+      bar.style.width = `${(info.progress * 100).toFixed(2)}%`;
+      progress.append(bar);
+      progress.title = `${Math.round(info.progress * 100)}% of the way there`;
+      li.append(progress);
+    }
 
     listEl.append(li);
   }
@@ -257,7 +259,8 @@ function tick() {
     if (!item) continue;
     const info = describe(item, now);
     li.querySelector('.live').textContent = liveText(info, now);
-    li.querySelector('.progress > div').style.width = `${(info.progress * 100).toFixed(2)}%`;
+    const bar = li.querySelector('.progress > div');
+    if (bar) bar.style.width = `${(info.progress * 100).toFixed(2)}%`;
   }
 }
 
@@ -294,6 +297,7 @@ function openEditor(item) {
   form.elements.time.value = item ? item.time || '' : '';
   form.elements.emoji.value = item ? item.emoji || '' : '';
   form.elements.yearly.checked = item ? !!item.yearly : false;
+  form.elements.showProgress.checked = item ? !item.hideProgress : true;
   chosenColor = item ? item.color || COLORS[0] : COLORS[items.length % COLORS.length];
   deleteBtn.hidden = !item;
   renderSwatches();
@@ -310,6 +314,7 @@ form.addEventListener('submit', (e) => {
     emoji: form.elements.emoji.value.trim(),
     color: chosenColor,
     yearly: form.elements.yearly.checked,
+    hideProgress: !form.elements.showProgress.checked,
   };
   if (!data.title || !data.date) return;
 

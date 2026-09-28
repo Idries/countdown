@@ -11,7 +11,7 @@ all its data on your device.
 - Optional time of day (e.g. a 07:30 flight)
 - Yearly repeat for birthdays and anniversaries, showing which one it is (e.g. "67th")
 - Past events count up ("574 days ago")
-- A progress bar from the day you created the countdown to the target date
+- An optional progress bar from the day you created the countdown to the target date
 - Emoji and colour for each countdown
 - Export and import a backup file (menu ⋮)
 - Light and dark mode follow your phone's setting

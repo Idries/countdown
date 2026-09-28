@@ -1,6 +1,6 @@
 // Offline support: serve the app shell from cache, refresh it in the background.
 // Bump VERSION whenever you change any of the files below.
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = `countdown-${VERSION}`;
 const FILES = [
   './',
